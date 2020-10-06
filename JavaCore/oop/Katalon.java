@@ -1,7 +1,7 @@
 package oop;
 
 public class Katalon {
-
+	protected int a;
 	public static void main(String[] args) {
 
 		Selenium selenium = new Selenium();
