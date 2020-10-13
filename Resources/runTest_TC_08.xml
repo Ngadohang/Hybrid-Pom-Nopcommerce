@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+		<parameter name="url" value="http://blueimp.github.io/jQuery-File-Upload"/>
+	  <test name="Run on FIREFOX UI">
+	  	<parameter name="browser" value="firefox_ui"/>
+	    <classes>
+	      <class name="nopcommerce.web.user.Level_08_UploadFiles"/>
+	    </classes>
+	  </test>
+</suite> 
+
+

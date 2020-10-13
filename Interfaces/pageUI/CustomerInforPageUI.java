@@ -15,4 +15,7 @@ public class CustomerInforPageUI extends Level_03_Register_Login {
 	public static final String PASSWORD_TEXBOX = "//input[@id='Password']";
 
 	public static final String NEWSLETTER_CHECKED = "//input[@id='Newsletter']";
+	
+	public static final String ADDRESSES_LINK="//div[@class='side-2']//a[contains(@href,'addresses')]";
+	public static final String CATELOG="//div[@class='side-2']";
 }

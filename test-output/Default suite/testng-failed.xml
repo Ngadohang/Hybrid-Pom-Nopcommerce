@@ -3,15 +3,13 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="nopcommerce.web.user.Level_04_Register_Login">
+      <class name="nopcommerce.web.user.Level_07_Handel_Data_Table">
         <methods>
-          <include name="beforeClass"/>
-          <include name="TC_03_View_My_Accout"/>
           <include name="afterClass"/>
-          <include name="TC_01_Register"/>
-          <include name="TC_02_Login"/>
+          <include name="TC_03_Delete_Edit_Icon"/>
+          <include name="beforeClass"/>
         </methods>
-      </class> <!-- nopcommerce.web.user.Level_04_Register_Login -->
+      </class> <!-- nopcommerce.web.user.Level_07_Handel_Data_Table -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Suite" parallel="false">
-  <test name="Run on FIREFOX UI" value="firefox_ui">
-  	<parameter name="browser" value="firefox_ui"/>
-    <classes>
-      <class name="nopcommerce.web.user.Level_04_Register_Login"/>
-    </classes>
-  </test> 
-  <test name="Run on CHROME UI">
-  	<parameter name="browser" value="chrome_ui"/>
-    <classes>
-      <class name="nopcommerce.web.user.Level_04_Register_Login"/>
-    </classes>
-  </test> 
-  <test name="Run on EDGE UI">
-  	<parameter name="browser" value="edge_ui"/>
-    <classes>
-      <class name="nopcommerce.web.user.Level_04_Register_Login"/>
-    </classes>
-  </test> 
-  <test name="Run on CHROME HEADLESS">
-    <parameter name="browser" value="chrome_headless"/>
-    <classes>
-      <class name="nopcommerce.web.user.Level_04_Register_Login"/>
-    </classes>
-  </test>
-  <test name="Run on FIREFOX HEADLESS">
-  	<parameter name="browser" value="firefox_headless"/>
-    <classes>
-      <class name="nopcommerce.web.user.Level_04_Register_Login"/>
-    </classes>
-  </test> 
+	<test name="Run on FIREFOX UI">
+		<parameter name="browser" value="firefox_ui" />
+		<classes>
+			<class name="nopcommerce.web.user.Level_04_Register_Login" />
+		</classes>
+	</test>
+	<test name="Run on CHROME UI">
+		<parameter name="browser" value="chrome_ui" />
+		<classes>
+			<class name="nopcommerce.web.user.Level_04_Register_Login" />
+		</classes>
+	</test>
+	
+	<test name="Run on EDGE UI">
+		<parameter name="browser" value="edge_ui" />
+		<classes>
+			<class name="nopcommerce.web.user.Level_04_Register_Login" />
+		</classes>
+	</test>
+	
+	<test name="Run on CHROME HEADLESS">
+		<parameter name="browser" value="chrome_headless" />
+		<classes>
+			<class name="nopcommerce.web.user.Level_04_Register_Login" />
+		</classes>
+	</test>
+
+<!-- 	<test name="Run on FIREFOX HEADLESS"> -->
+<!-- 		<parameter name="browser" value="firefox_headless" /> -->
+<!-- 		<classes> -->
+<!-- 			<class name="nopcommerce.web.user.Level_04_Register_Login" /> -->
+<!-- 		</classes> -->
+<!-- 	</test> -->
+	
 </suite> 

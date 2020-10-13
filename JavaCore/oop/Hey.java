@@ -4,11 +4,19 @@ import basic.ParentClass;
 import manualTesting.ChildClass;
 
 public class Hey  {
-	 static String c;
+	
+	 public static final String DYNAMIC_LOCATOR= "//div[@class='%s']//a[text()='%s']";
+	 
+//	public String restParameter(String...B) {
+//		return String.format(DYNAMIC_LOCATOR,(Object)B);
+//	}
+	public void getRestParameter(String locator,String e,String...values) {
+		locator=String.format(locator,(Object[])values);
+		System.out.println("click to element"+e+ locator);
+	}
 	public static void main(String[] args) {
-	//	ParentClass parent=new ParentClass("nga");
-		
-		System.out.println(c);
+		Hey hey=new Hey();
+		hey.getRestParameter(DYNAMIC_LOCATOR,"huyen","cho","nga","hieu");
 
 	}
 

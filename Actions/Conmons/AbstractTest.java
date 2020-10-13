@@ -15,9 +15,9 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class AbstractTest {
 	private WebDriver driver;
-	String source_folder = System.getProperty("user.dir");
+	//private String source_folder = System.getProperty("user.dir");
 	
-	protected WebDriver getBrowserDriver(String browserName) {
+	protected WebDriver getBrowserDriver(String browserName, String url) {
 		
 		if (browserName.equalsIgnoreCase("chrome_ui")) {
 			//System.setProperty("webdriver.chrome.driver", source_folder + "\\browserDriver\\chromedriver.exe");
@@ -34,7 +34,7 @@ public class AbstractTest {
 		} else if (browserName.equalsIgnoreCase("edge_ui")) {
 			//System.setProperty("webdriver.edge.driver", source_folder + "\\browserDriver\\msedgedriver.exe");
 			
-			WebDriverManager.edgedriver().driverVersion("");
+			WebDriverManager.edgedriver().setup();
 			driver = new EdgeDriver();
 		} else if (browserName.equalsIgnoreCase("chrome_headless")) {
 			//System.setProperty("webdriver.chrome.driver", source_folder + "\\browserDriver\\chromedriver.exe");
@@ -65,6 +65,7 @@ public class AbstractTest {
 		}
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
+		driver.get(url);
 		return driver;
 	}
 }

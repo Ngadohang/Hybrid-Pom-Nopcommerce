@@ -1,74 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Failed suite [Suite]">
+  <parameter name="url" value="http://blueimp.github.io/jQuery-File-Upload"/>
   <test thread-count="5" name="Run on FIREFOX UI(failed)">
     <parameter name="browser" value="firefox_ui"/>
     <classes>
-      <class name="nopcommerce.web.user.Level_04_Register_Login">
+      <class name="nopcommerce.web.user.Level_08_UploadFiles">
         <methods>
+          <include name="Tc_01_UploadFiles"/>
           <include name="beforeClass"/>
-          <include name="TC_03_View_My_Accout"/>
           <include name="afterClass"/>
-          <include name="TC_01_Register"/>
-          <include name="TC_02_Login"/>
         </methods>
-      </class> <!-- nopcommerce.web.user.Level_04_Register_Login -->
+      </class> <!-- nopcommerce.web.user.Level_08_UploadFiles -->
     </classes>
   </test> <!-- Run on FIREFOX UI(failed) -->
-  <test thread-count="5" name="Run on CHROME UI(failed)">
-    <parameter name="browser" value="chrome_ui"/>
-    <classes>
-      <class name="nopcommerce.web.user.Level_04_Register_Login">
-        <methods>
-          <include name="beforeClass"/>
-          <include name="TC_03_View_My_Accout"/>
-          <include name="afterClass"/>
-          <include name="TC_01_Register"/>
-          <include name="TC_02_Login"/>
-        </methods>
-      </class> <!-- nopcommerce.web.user.Level_04_Register_Login -->
-    </classes>
-  </test> <!-- Run on CHROME UI(failed) -->
-  <test thread-count="5" name="Run on EDGE UI(failed)">
-    <parameter name="browser" value="edge_ui"/>
-    <classes>
-      <class name="nopcommerce.web.user.Level_04_Register_Login">
-        <methods>
-          <include name="beforeClass"/>
-          <include name="TC_03_View_My_Accout"/>
-          <include name="afterClass"/>
-          <include name="TC_01_Register"/>
-          <include name="TC_02_Login"/>
-        </methods>
-      </class> <!-- nopcommerce.web.user.Level_04_Register_Login -->
-    </classes>
-  </test> <!-- Run on EDGE UI(failed) -->
-  <test thread-count="5" name="Run on CHROME HEADLESS(failed)">
-    <parameter name="browser" value="chrome_headless"/>
-    <classes>
-      <class name="nopcommerce.web.user.Level_04_Register_Login">
-        <methods>
-          <include name="beforeClass"/>
-          <include name="TC_03_View_My_Accout"/>
-          <include name="afterClass"/>
-          <include name="TC_01_Register"/>
-          <include name="TC_02_Login"/>
-        </methods>
-      </class> <!-- nopcommerce.web.user.Level_04_Register_Login -->
-    </classes>
-  </test> <!-- Run on CHROME HEADLESS(failed) -->
-  <test thread-count="5" name="Run on FIREFOX HEADLESS(failed)">
-    <parameter name="browser" value="firefox_headless"/>
-    <classes>
-      <class name="nopcommerce.web.user.Level_04_Register_Login">
-        <methods>
-          <include name="beforeClass"/>
-          <include name="TC_03_View_My_Accout"/>
-          <include name="afterClass"/>
-          <include name="TC_01_Register"/>
-          <include name="TC_02_Login"/>
-        </methods>
-      </class> <!-- nopcommerce.web.user.Level_04_Register_Login -->
-    </classes>
-  </test> <!-- Run on FIREFOX HEADLESS(failed) -->
 </suite> <!-- Failed suite [Suite] -->

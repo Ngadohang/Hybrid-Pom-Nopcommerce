@@ -2,10 +2,8 @@ package Conmons;
 
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -16,7 +14,19 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import pageObjects.AddressesPageObject;
+import pageObjects.BackInStockPageObject;
+import pageObjects.ChangePasswordPageOject;
+import pageObjects.CustomerInforPageObject;
+import pageObjects.DownloadablePageObject;
+import pageObjects.MyProductReviewPageObject;
+import pageObjects.OrderPageObject;
+import pageObjects.PageManagerObject;
+import pageObjects.RewardPointPageObject;
+import pageUI.AbstractPageUI;
+
 public class AbstractPage {
+
 	public void openPageUrl(WebDriver driver, String url) {
 		driver.get(url);
 	}
@@ -118,8 +128,16 @@ public class AbstractPage {
 		return driver.findElement(By.xpath(locator));
 	}
 
+	public WebElement getElementByXpath(WebDriver driver, String locator, String... values) {
+		return driver.findElement(By.xpath(getDynamicLocator(locator, values)));
+	}
+
 	public List<WebElement> findElementsByXpath(WebDriver driver, String locator) {
 		return driver.findElements(By.xpath(locator));
+	}
+
+	public List<WebElement> findElementsByXpath(WebDriver driver, String locator, String... values) {
+		return driver.findElements(By.xpath(getDynamicLocator(locator, values)));
 	}
 
 	public void clickToElement(WebDriver driver, String locator) {
@@ -129,12 +147,12 @@ public class AbstractPage {
 
 	public void senkeyToElement(WebDriver driver, String locator, String value) {
 		getElementByXpath(driver, locator).clear();
-		if(driver.toString().toUpperCase().contains("chrome") || driver.toString().toUpperCase().contains("edge")) {
+		if (driver.toString().toUpperCase().contains("chrome") || driver.toString().toUpperCase().contains("edge")) {
 			sleepInMilisecond(1000);
 		}
 		getElementByXpath(driver, locator).sendKeys(value);
 	}
-	
+
 	public void sleepInMilisecond(long milisecond) {
 		try {
 			Thread.sleep(milisecond);
@@ -193,6 +211,14 @@ public class AbstractPage {
 				break;
 			}
 		}
+
+	}
+
+	public void selectItemBySenkeyInput(WebDriver driver, String parentItem, String ChildItem, String valueInput) {
+		getElementByXpath(driver, parentItem).clear();
+		getElementByXpath(driver, parentItem).sendKeys(valueInput);
+		waitToElementClickable(driver, ChildItem);
+		getElementByXpath(driver, ChildItem).click();
 
 	}
 
@@ -362,11 +388,13 @@ public class AbstractPage {
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 		return (String) jsExecutor.executeScript("return document.querySelector(\"" + cssLocator + "\").textContent");
 	}
-	
+
 	public void hiddenElementByJS(WebDriver driver, String locator) {
-		//Object element= ((JavascriptExecutor) driver).executeScript("return document.querySelector(\""+cssLocator+"\")");
-		WebElement element= getElementByXpath(driver, locator);
-		((JavascriptExecutor) driver).executeScript("arguments[0].setAttribute(arguments[1],arguments[2])",element,"style","display:none");
+		// Object element= ((JavascriptExecutor) driver).executeScript("return
+		// document.querySelector(\""+cssLocator+"\")");
+		WebElement element = getElementByXpath(driver, locator);
+		((JavascriptExecutor) driver).executeScript("arguments[0].setAttribute(arguments[1],arguments[2])", element,
+				"style", "display:none");
 	}
 
 	public boolean isImageLoaded(WebDriver driver, String locator) {
@@ -412,23 +440,165 @@ public class AbstractPage {
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
 	}
 
-	public void waitForElementInvisible(WebDriver driver, String locator) {
+	public void waitForElementDynamicVisible(WebDriver driver, String locator, String... values) {
 		explicitWait = new WebDriverWait(driver, 30);
+		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(getDynamicLocator(locator, values))));
+	}
+
+	public void waitForElementInvisible(WebDriver driver, String locator) {
+		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(locator)));
+	}
+
+	public void waitForElementInvisible(WebDriver driver, String locator, String... values) {
+		explicitWait = new WebDriverWait(driver, 30);
+		explicitWait
+				.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(getDynamicLocator(locator, values))));
 	}
 
 	public void waitToElementClickable(WebDriver driver, String locator) {
 		explicitWait = new WebDriverWait(driver, 30);
 		explicitWait.until(ExpectedConditions.elementToBeClickable(By.xpath(locator)));
+		sleepInMilisecond(500);
 	}
 
 	public void waitForAlertPresence(WebDriver driver) {
 		explicitWait = new WebDriverWait(driver, 30);
 		explicitWait.until(ExpectedConditions.alertIsPresent());
 	}
-	
-	
-	
+
+	public CustomerInforPageObject openCustomerPage(WebDriver driver) {
+		waitToElementClickable(driver, AbstractPageUI.CUSTOMER_LINK);
+		clickToElement(driver, AbstractPageUI.CUSTOMER_LINK);
+		return PageManagerObject.getCustomerInfor(driver);
+	}
+
+	public AddressesPageObject openAddressesPage(WebDriver driver) {
+		waitToElementClickable(driver, AbstractPageUI.ADDRESSES_LINK);
+		clickToElement(driver, AbstractPageUI.ADDRESSES_LINK);
+		return PageManagerObject.getAddressesPage(driver);
+	}
+
+	public BackInStockPageObject openBackInStockPage(WebDriver driver) {
+		waitToElementClickable(driver, AbstractPageUI.BACKINSTOCK_LINK);
+		clickToElement(driver, AbstractPageUI.BACKINSTOCK_LINK);
+		return PageManagerObject.getBackInStock(driver);
+	}
+
+	public ChangePasswordPageOject openChangepasswordPage(WebDriver driver) {
+		waitToElementClickable(driver, AbstractPageUI.CHANGEPASSWORD_LINK);
+		clickToElement(driver, AbstractPageUI.CHANGEPASSWORD_LINK);
+		return PageManagerObject.getChangePassword(driver);
+	}
+
+	public DownloadablePageObject openDownloadabePage(WebDriver driver) {
+		waitToElementClickable(driver, AbstractPageUI.DOWNLOADABLE_LINK);
+		clickToElement(driver, AbstractPageUI.DOWNLOADABLE_LINK);
+		return PageManagerObject.getDownloadablePage(driver);
+	}
+
+	public MyProductReviewPageObject openMyProductPage(WebDriver driver) {
+		waitToElementClickable(driver, AbstractPageUI.MYPRODUCT_LINK);
+		clickToElement(driver, AbstractPageUI.MYPRODUCT_LINK);
+		return PageManagerObject.getMyProductPage(driver);
+	}
+
+	public OrderPageObject openOrderPage(WebDriver driver) {
+		waitToElementClickable(driver, AbstractPageUI.ORDER_LINK);
+		clickToElement(driver, AbstractPageUI.ORDER_LINK);
+		return PageManagerObject.getOrderPage(driver);
+	}
+
+	public RewardPointPageObject openRewardPoint(WebDriver driver) {
+		waitToElementClickable(driver, AbstractPageUI.REWARDPOINT_LINK);
+		clickToElement(driver, AbstractPageUI.REWARDPOINT_LINK);
+		return PageManagerObject.getRewardPoint(driver);
+	}
+
+	public void waitToElementClickable(WebDriver driver, String locator, String... values) {
+		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
+		explicitWait.until(ExpectedConditions.elementToBeClickable(By.xpath(getDynamicLocator(locator, values))));
+		sleepInMilisecond(GlobalConstants.SHORT_TIMEOUT);
+	}
+
+	public String getDynamicLocator(String locator, String... values) {
+		locator = String.format(locator, (Object[]) values);
+		return locator;
+	}
+
+	public void clickToElement(WebDriver driver, String locator, String... values) {
+		sleepInMilisecond(GlobalConstants.SHORT_TIMEOUT);
+		getElementByXpath(driver, getDynamicLocator(locator, values)).click();
+	}
+
+	public void senkeyToElement(WebDriver driver, String locator, String inputValues, String... values) {
+		locator = String.format(locator, (Object[]) values);
+		getElementByXpath(driver, locator).clear();
+		if (driver.toString().toUpperCase().contains("chrome") || driver.toString().toUpperCase().contains("edge")) {
+			sleepInMilisecond(1000);
+		}
+		getElementByXpath(driver, locator).sendKeys(inputValues);
+	}
+
+	public String getTextElement(WebDriver driver, String locator, String... values) {
+		WebElement element = getElementByXpath(driver, getDynamicLocator(locator, values));
+		return element.getText();
+	}
+
+	public boolean isElementDisplay(WebDriver driver, String locator, String... values) {
+		return getElementByXpath(driver, getDynamicLocator(locator, values)).isDisplayed();
+	}
+
+	public void waitForElementVisible(WebDriver driver, String locator, String... values) {
+		explicitWait = new WebDriverWait(driver, 30);
+		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(getDynamicLocator(locator, values))));
+	}
+
+	public AbstractPage openNewPage(WebDriver driver, String pageName) {
+		waitToElementClickable(driver, AbstractPageUI.DYNAMIC_LOCATOR, pageName);
+		clickToElement(driver, AbstractPageUI.DYNAMIC_LOCATOR, pageName);
+
+		switch (pageName) {
+		case "Addresses":
+			return PageManagerObject.getAddressesPage(driver);
+		case "Orders":
+			return PageManagerObject.getOrderPage(driver);
+		case "Back in stock subscriptions":
+			return PageManagerObject.getBackInStock(driver);
+		case "Change password":
+			return PageManagerObject.getChangePassword(driver);
+		case "Customer info":
+			return PageManagerObject.getCustomerInfor(driver);
+		case "Downloadable products":
+			return PageManagerObject.getDownloadablePage(driver);
+		case "Reward points":
+			return PageManagerObject.getRewardPoint(driver);
+		default:
+			return PageManagerObject.getMyProductPage(driver);
+
+		}
+
+	}
+
+	public void openNewPageObject(WebDriver driver, String pageName) {
+		waitToElementClickable(driver, AbstractPageUI.DYNAMIC_LOCATOR, pageName);
+		clickToElement(driver, AbstractPageUI.DYNAMIC_LOCATOR, pageName);
+	}
+
+	public boolean isElementUnDisplayExistDom(WebDriver driver, String locator) {
+		boolean status = false;
+		List<WebElement> elements = findElementsByXpath(driver, locator);
+		if (elements.size() == 0) {
+			status = true;
+		} else if (elements.size() > 0 && !elements.get(0).isDisplayed()) {
+			status = true;
+		} else {
+			status=false;
+		}
+
+		return status;
+	}
+
 	private WebDriverWait explicitWait;
 	private JavascriptExecutor jsExecutor;
 	private WebElement element;

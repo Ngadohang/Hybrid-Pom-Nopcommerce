@@ -114,13 +114,13 @@ public class AbstractFactory {
 		driver.switchTo().window(driver.getWindowHandle());
 	}
 
-//	public WebElement getElementByXpath(WebDriver driver, String locator) {
-//		return driver.findElement(By.xpath(locator));
-//	}
-//
-//	public List<WebElement> findElementsByXpath(WebDriver driver, String locator) {
-//		return driver.findElements(By.xpath(locator));
-//	}
+	public WebElement getElementByXpath(WebDriver driver, String locator) {
+		return driver.findElement(By.xpath(locator));
+	}
+
+	public List<WebElement> findElementsByXpath(WebDriver driver, String locator) {
+		return driver.findElements(By.xpath(locator));
+	}
 
 	public void clickToElement(WebDriver driver, WebElement element) {
 		sleepInMilisecond(500);
@@ -238,7 +238,7 @@ public class AbstractFactory {
 		}
 	}
 
-	public boolean isElementDisplay(WebDriver driver,WebElement element) {
+	public boolean isElementDisplay(WebDriver driver, WebElement element) {
 		return element.isDisplayed();
 	}
 
@@ -278,9 +278,9 @@ public class AbstractFactory {
 		action.clickAndHold(element).perform();
 	}
 
-	public void dragAndDrogElement(WebDriver driver, WebElement elementSource,  WebElement elemenTarget) {
+	public void dragAndDrogElement(WebDriver driver, WebElement elementSource, WebElement elemenTarget) {
 		Actions action = new Actions(driver);
-		action.dragAndDrop(elementSource,elemenTarget ).perform();
+		action.dragAndDrop(elementSource, elemenTarget).perform();
 	}
 
 	public void senKeyBoarchToElement(WebDriver driver, WebElement element, Keys key) {
@@ -322,24 +322,22 @@ public class AbstractFactory {
 
 	public void clickElementByJs(WebDriver driver, WebElement elemen) {
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-		jsExecutor.executeScript("arguments[0].click()",element);
+		jsExecutor.executeScript("arguments[0].click()", element);
 	}
 
 	public void scrollToElement(WebDriver driver, WebElement element) {
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-		jsExecutor.executeScript("argument[0].scrollIntoView(true)",element);
+		jsExecutor.executeScript("argument[0].scrollIntoView(true)", element);
 	}
 
-	public void senKeyToElementByJs(WebDriver driver,WebElement element, String value) {
+	public void senKeyToElementByJs(WebDriver driver, WebElement element, String value) {
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-		jsExecutor.executeScript("argument[0].setAttribute('value','" + value + "')",
-			element);
+		jsExecutor.executeScript("argument[0].setAttribute('value','" + value + "')", element);
 	}
 
 	public void removeAttributeInDom(WebDriver driver, WebElement element, String attribute) {
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-		jsExecutor.executeScript("argument[0].removeAttribute('" + attribute + "')",element
-				);
+		jsExecutor.executeScript("argument[0].removeAttribute('" + attribute + "')", element);
 	}
 
 	public String getHiddenText(WebDriver driver, String cssLocator) {
@@ -386,10 +384,10 @@ public class AbstractFactory {
 		return explicitWait.until(jQueryLoad) && explicitWait.until(jsLoad);
 	}
 
-//	public void waitForElementPresence(WebDriver driver, String locator) {
-//		explicitWait = new WebDriverWait(driver, 30);
-//		explicitWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
-//	}
+	public void waitForElementPresence(WebDriver driver, String locator) {
+		explicitWait = new WebDriverWait(driver, 30);
+		explicitWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
+	}
 
 	public void waitForElementVisible(WebDriver driver, WebElement element) {
 		explicitWait = new WebDriverWait(driver, 30);
@@ -411,6 +409,8 @@ public class AbstractFactory {
 		explicitWait.until(ExpectedConditions.alertIsPresent());
 	}
 
+	
+	
 	private WebDriverWait explicitWait;
 	private JavascriptExecutor jsExecutor;
 	private WebElement element;

@@ -20,11 +20,18 @@ import org.testng.annotations.Test;
 
 import Conmons.AbstractPage;
 import Conmons.AbstractTest;
+import pageObjects.AddressesPageObject;
+import pageObjects.BackInStockPageObject;
+import pageObjects.ChangePasswordPageOject;
 import pageObjects.CustomerInforPageObject;
+import pageObjects.DownloadablePageObject;
 import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
+import pageObjects.MyProductReviewPageObject;
+import pageObjects.OrderPageObject;
 import pageObjects.PageManagerObject;
 import pageObjects.RegisterPageObject;
+import pageObjects.RewardPointPageObject;
 
 public class Level_04_Register_Login extends AbstractTest {
 	// AbstractPage abstractPage;
@@ -32,12 +39,10 @@ public class Level_04_Register_Login extends AbstractTest {
 	String firstName, lastName, dateOfBirthDay, dateOfBirthMonth, dateOfBirthYear, company, password, comfirmPassword,
 			email;
 
-	@Parameters("browser")
+	@Parameters({"browser","url"})
 	@BeforeClass
-	public void beforeClass(String browserName) {
-
-		driver = getBrowserDriver(browserName);
-
+	public void beforeClass(String browserName,String url) {
+		driver = getBrowserDriver(browserName,url);
 		// abstractPage = new AbstractPage();
 		firstName = "Nga";
 		lastName = "Do";
@@ -55,7 +60,7 @@ public class Level_04_Register_Login extends AbstractTest {
 
 	@Test
 	public void TC_01_Register() {
-		registerPage=homePage.clickToRegisterLink();
+		registerPage = homePage.clickToRegisterLink();
 		registerPage.clickToGenderMaleRadioButton();
 		registerPage.inputToFirstNameTextBox(firstName);
 		registerPage.inputToLastNameTextBox(lastName);
@@ -80,12 +85,12 @@ public class Level_04_Register_Login extends AbstractTest {
 
 	@Test
 	public void TC_02_Login() {
-		loginPage=homePage.clickToLoginLink();
+		loginPage = homePage.clickToLoginLink();
 		// loginPage = new LoginPageObject(driver);
 
 		loginPage.inputToEmailTextBox(email);
 		loginPage.inputToPasswordTextBox(password);
-		homePage=loginPage.clickToLoginButton();
+		homePage = loginPage.clickToLoginButton();
 
 		// homepage = new HomePageObject(driver);
 
@@ -96,7 +101,7 @@ public class Level_04_Register_Login extends AbstractTest {
 
 	@Test
 	public void TC_03_View_My_Accout() {
-		customerInfor=homePage.clickToMyAccoutLink();
+		customerInfor = homePage.clickToMyAccoutLink();
 
 		// customerInfor = new CustomerInforPageObject(driver);
 
@@ -114,6 +119,20 @@ public class Level_04_Register_Login extends AbstractTest {
 
 	}
 
+	@Test
+	public void TC_04_Switch_Page() {
+		// customerInfo switch all page
+		// customerInfor = homePage.clickToMyAccoutLink();
+		addressPage = customerInfor.openAddressesPage(driver);
+		orderPage = addressPage.openOrderPage(driver);
+		dowloadablePage = orderPage.openDownloadabePage(driver);
+		backInStock = dowloadablePage.openBackInStockPage(driver);
+		rewardPoint = backInStock.openRewardPoint(driver);
+		changePassword = rewardPoint.openChangepasswordPage(driver);
+		myProduct = changePassword.openMyProductPage(driver);
+		customerInfor = myProduct.openCustomerPage(driver);
+	}
+
 	public int getEmailRandom() {
 		Random rand = new Random();
 		return rand.nextInt(9999);
@@ -129,5 +148,12 @@ public class Level_04_Register_Login extends AbstractTest {
 	LoginPageObject loginPage;
 	CustomerInforPageObject customerInfor;
 	PageManagerObject pageManager;
+	AddressesPageObject addressPage;
+	DownloadablePageObject dowloadablePage;
+	OrderPageObject orderPage;
+	BackInStockPageObject backInStock;
+	RewardPointPageObject rewardPoint;
+	ChangePasswordPageOject changePassword;
+	MyProductReviewPageObject myProduct;
 
 }

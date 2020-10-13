@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+  <parameter name="url" value="http://live.demoguru99.com/index.php/backendlogin/customer"/>
+  <test name="Run on FIREFOX UI">
+  	<parameter name="browser" value="firefox_ui"/>
+    <classes>
+      <class name="nopcommerce.web.user.Level_04_Register_Login"/>
+    </classes>
+  </test>
+</suite> 

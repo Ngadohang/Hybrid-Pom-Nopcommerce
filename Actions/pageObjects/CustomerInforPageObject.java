@@ -8,12 +8,14 @@ import pageUI.HomePageUI;
 
 public class CustomerInforPageObject extends AbstractPage {
 	WebDriver driver;
+
 	public CustomerInforPageObject(WebDriver driver) {
-		this.driver=driver;
+		this.driver = driver;
 	}
+
 	public boolean isGenderMaleRadioButtonSelected() {
 		waitForElementVisible(driver, CustomerInforPageUI.GENDER_MALE_RADIO);
-		return isElementSelected(driver,  CustomerInforPageUI.GENDER_MALE_RADIO);
+		return isElementSelected(driver, CustomerInforPageUI.GENDER_MALE_RADIO);
 	}
 
 	public String getFirstNameTextBox() {
@@ -47,7 +49,7 @@ public class CustomerInforPageObject extends AbstractPage {
 		waitForElementVisible(driver, CustomerInforPageUI.EMAIL_TEXBOX);
 		return getElementAttribute(driver, CustomerInforPageUI.EMAIL_TEXBOX, "value");
 	}
-	
+
 	public String getCompanyTextBoxValue() {
 		waitForElementVisible(driver, CustomerInforPageUI.COMPANY_TEXBOX);
 		return getElementAttribute(driver, CustomerInforPageUI.COMPANY_TEXBOX, "value");
@@ -55,7 +57,21 @@ public class CustomerInforPageObject extends AbstractPage {
 
 	public boolean isNewsLetterChecked() {
 		waitForElementVisible(driver, CustomerInforPageUI.NEWSLETTER_CHECKED);
-		return isElementSelected(driver,  CustomerInforPageUI.NEWSLETTER_CHECKED);
+		return isElementSelected(driver, CustomerInforPageUI.NEWSLETTER_CHECKED);
 	}
+
+	public boolean isCatelogDisplay() {
+		waitForElementVisible(driver, CustomerInforPageUI.CATELOG);
+		return isElementDisplay(driver, CustomerInforPageUI.CATELOG);
+	}
+
+//	public AddressesPageObject openAddressesPage() {
+//		waitToElementClickable(driver, CustomerInforPageUI.ADDRESSES_LINK);
+//		clickToElement(driver, CustomerInforPageUI.ADDRESSES_LINK);
+//		return PageManagerObject.getAddressesPage(driver);
+//	}
+
+	
+
 
 }
